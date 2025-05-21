@@ -12,10 +12,10 @@
          }
         </div>
 
-        <div>
-            <button (click)="changePage(-1)" [disabled]="page <= 1"> < Назад</button>
+        <div class="pages-block">
+            <button (click)="changePage(-1)" [disabled]="page <= 1" class="pages-btn"> < Назад</button>
             <span>Страница: {{page}}</span>
-            <button (click)="changePage(1)"> Далее ></button>
+            <button (click)="changePage(1)" class="pages-btn"> Далее ></button>
         </div>
     </div>
 }
