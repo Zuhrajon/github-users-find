@@ -1,0 +1,25 @@
+<app-input-search (search)="handleSearch($event)" />
+
+@if(users.length) {
+    <div class="users-table-container">
+        <h3>Найдено: {{total}}</h3>
+
+        <div class="user-list">
+            @for(user of users; track user) {
+            <div class="user-item">
+                <img [src]="user.avatar_url" alt="">
+                <a [href]="user.html_url" target="_blank">{{ user.login }}</a>            </div>
+         }
+        </div>
+
+        <div>
+            <button (click)="changePage(-1)" [disabled]="page <= 1"> < Назад</button>
+            <span>Страница: {{page}}</span>
+            <button (click)="changePage(1)"> Далее ></button>
+        </div>
+    </div>
+}
+
+@if(!users.length && searched) {
+    <p>Ничего не найдено</p>
+}
