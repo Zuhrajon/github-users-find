@@ -13,15 +13,24 @@ export interface GitHubSearchResult {
   items: GitHubUserShort[];
 }
 
-export interface GitHubFindRepository {
-  login:string;
-  repository: string;
-  avatar_url: string;
+
+export interface GitHubRepo {
+  id: number;
+  name: string;
+  full_name: string;
+  html_url: string;
+  description: string;
+  language: string;
+  owner: {
+    login: string;
+    avatar_url: string;
+    html_url: string;
+  };
 }
 
-export interface GitHubSearchRepository {
+export interface GitHubRepoSearchResult {
   total_count: number;
-  items: GitHubFindRepository[];
+  items: GitHubRepo[];
 }
 
 
@@ -42,9 +51,7 @@ export class UsersService {
     return this.http.get<GitHubSearchResult>(`${this.userAPI}?q=${query}&page=${page}`)
   }
  
-  searchRepository(queryRep: string, page = 1): Observable<GitHubSearchRepository> {
-    console.log("result1");
-    
-    return this.http.get<GitHubSearchRepository>(`${this.repositoryAPI}?q=${queryRep}&page=${page}`)
+  searchRepository(queryRep: string, page = 1): Observable<GitHubRepoSearchResult> {
+    return this.http.get<GitHubRepoSearchResult>(`${this.repositoryAPI}?q=${queryRep}&page=${page}`)
   }
 }

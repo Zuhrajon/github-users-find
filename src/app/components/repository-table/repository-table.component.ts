@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { InputSearchComponent } from "../input-search/input-search.component";
-import { GitHubFindRepository, UsersService } from '../../service/users.service';
+import {  UsersService } from '../../service/users.service';
 
 @Component({
   selector: 'app-repository-table',
@@ -10,7 +10,7 @@ import { GitHubFindRepository, UsersService } from '../../service/users.service'
   styleUrl: './repository-table.component.scss'
 })
 export class RepositoryTableComponent {
-  repository: GitHubFindRepository[] = []
+  repository: any[] = []
   total = 0;
   page = 1;
   query = "";

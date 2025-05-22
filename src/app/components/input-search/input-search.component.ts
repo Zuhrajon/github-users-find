@@ -17,14 +17,10 @@ export class InputSearchComponent {
   
 
   onSearch() {
-    console.log("result4");
-    
     this.search.emit(this.query.trim());
   }
 
   onSearchRepository() {
-    console.log("result2");
-    
     this.searchRepository.emit(this.queryRep.trim());
   }
   

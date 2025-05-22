@@ -1,6 +1,12 @@
-<app-input-search (search)="handleSearch($event)" />
+<div>
+    <select [(ngModel)]="searchType">
+        <option value="users">Пользователи</option>
+        <option value="repository">Репозитории</option>
+    </select>
+    <app-input-search (search)="handleSearch($event)" />
+</div>
 
-@if(users.length) {
+@if(searchType === 'users' && users.length > 0) {
     <div class="users-table-container">
         <h3>Найдено: {{total}}</h3>
 
@@ -20,6 +26,29 @@
     </div>
 }
 
-@if(!users.length && searched) {
+@if(searchType === 'repository' && repository.length > 0) {
+    <div class="users-table-container">
+        <h3>Найдено: {{total}}</h3>
+
+        <div class="user-list">
+            @for(rep of repository; track rep) {
+            <div class="user-item">
+                <img [src]="rep.owner.avatar_url" alt="">
+                <a [href]="rep.html_url" target="_blank">{{ rep.full_name }}</a>   
+                <p> {{rep.language}}</p>
+            </div>
+         }
+        </div>
+
+        <div class="pages-block">
+            <button (click)="changePage(-1)" [disabled]="page <= 1" class="pages-btn"> < Назад</button>
+            <span>Страница: {{page}}</span>
+            <button (click)="changePage(1)" class="pages-btn"> Далее ></button>
+        </div>
+    </div>
+}
+
+
+@if(!users.length && searched && !repository.length) {
     <p>Ничего не найдено</p>
 }

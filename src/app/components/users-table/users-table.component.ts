@@ -1,25 +1,29 @@
 
 import {Component, inject} from '@angular/core';
 import {InputSearchComponent} from "../input-search/input-search.component";
-import {GitHubUserShort, UsersService} from "../../service/users.service";
+import {GitHubRepo, GitHubUserShort, UsersService} from "../../service/users.service";
 import {RouterLink} from "@angular/router";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-users-table',
   standalone: true,
   imports: [
     InputSearchComponent,
-    RouterLink
+    RouterLink,
+    FormsModule
   ],
   templateUrl: './users-table.component.html',
   styleUrl: './users-table.component.scss'
 })
 export class UsersTableComponent {
   users: GitHubUserShort[] = []
+  repository: GitHubRepo[] =[]
   total = 0;
   page = 1;
   query = "";
   searched = false;
+  searchType: 'users' | 'repository' = 'users';
 
   usersService = inject(UsersService);
 
@@ -37,7 +41,8 @@ export class UsersTableComponent {
   searchUsers() {
     if(!this.query) return;
 
-    this.usersService.searchUsers(this.query, this.page).subscribe({
+    if(this.searchType === 'users') {
+       this.usersService.searchUsers(this.query, this.page).subscribe({
       next: (res) => {
         this.users = res.items;
         this.total = res.total_count;
@@ -49,5 +54,19 @@ export class UsersTableComponent {
         this.searched = false;
       }
     })
+    }else {
+      this.usersService.searchRepository(this.query, this.page).subscribe({
+         next: (res) => {
+        this.repository = res.items;
+        this.total = res.total_count;
+        this.searched = true;
+      },
+      error: (err) => {
+        this.repository = [];
+        this.total = 0;
+        this.searched = false;
+      }
+      })
+    }
   }
 }
