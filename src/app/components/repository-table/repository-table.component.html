@@ -1,0 +1,28 @@
+<p>repository-table works!</p>
+<app-input-search (search)="handleSearchRepository($event)" />
+
+@if(repository.length) {
+<div class="users-table-container">
+    <h3>Найдено: {{total}}</h3>
+
+    <div class="user-list">
+        @for(user of repository; track user) {
+        <div class="user-item">
+            <img [src]="user.avatar_url" alt="">
+            <a [href]="user.avatar_url" target="_blank">{{ user.login }}</a>
+        </div>
+        }
+    </div>
+
+    <div class="pages-block">
+        <button (click)="changePageRepository(-1)" [disabled]="page <= 1" class="pages-btn">
+            < Назад</button>
+                <span>Страница: {{page}}</span>
+                <button (click)="changePageRepository(1)" class="pages-btn"> Далее ></button>
+    </div>
+</div>
+}
+
+@if(!repository.length && searched) {
+<p>Ничего не найдено</p>
+}
