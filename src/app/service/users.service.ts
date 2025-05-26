@@ -34,6 +34,7 @@ export interface GitHubRepoSearchResult {
 }
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,12 +47,12 @@ export class UsersService {
 
 
   searchUsers(query: string, page = 1): Observable<GitHubSearchResult> {
-    console.log("result3");
-    
     return this.http.get<GitHubSearchResult>(`${this.userAPI}?q=${query}&page=${page}`)
   }
  
   searchRepository(queryRep: string, page = 1): Observable<GitHubRepoSearchResult> {
     return this.http.get<GitHubRepoSearchResult>(`${this.repositoryAPI}?q=${queryRep}&page=${page}`)
   }
+
+
 }

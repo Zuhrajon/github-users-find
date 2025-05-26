@@ -4,6 +4,7 @@ import {InputSearchComponent} from "../input-search/input-search.component";
 import {GitHubRepo, GitHubUserShort, UsersService} from "../../service/users.service";
 import {RouterLink} from "@angular/router";
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-users-table',
@@ -11,7 +12,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     InputSearchComponent,
     RouterLink,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   templateUrl: './users-table.component.html',
   styleUrl: './users-table.component.scss'
@@ -36,6 +38,26 @@ export class UsersTableComponent {
   changePage(direction: number) {
     this.page += direction;
     this.searchUsers()
+  }
+
+  changeLanguageColor(language: string){
+   
+    switch(language) {
+      case 'JavaScript':
+            return 'color-js';
+        case 'Python':
+            return 'color-python';
+        case 'Java':
+            return 'color-java';
+        case 'C':
+            return 'color-csharp';
+        case 'Jupyter Notebook':
+            return 'color-jupyter'
+        case 'Go':
+            return 'color-go'
+        default:
+            return 'color-default';
+    }
   }
 
   searchUsers() {
